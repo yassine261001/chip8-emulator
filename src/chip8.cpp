@@ -1,5 +1,6 @@
 #include "chip8.hpp"
 #include <fstream>
+#include <iostream>
 
 // Chip-8 memory from 0x000 to 0x1FF reserved
     const unsigned int START_ADDRESS = 0x200;
@@ -56,6 +57,8 @@
 
             // free buffer
             delete[] buffer;
+        } else {
+            std::cout << "Could not open ROM: " << filename << "\n";
         }
     }
 
