@@ -70,3 +70,6 @@ Testing/
 # roms
 
 /roms
+
+#DS Store
+.DS_Store
