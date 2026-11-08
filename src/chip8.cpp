@@ -1,6 +1,7 @@
 #include "chip8.hpp"
 #include <fstream>
 #include <iostream>
+#include <chrono>
 
 // Chip-8 memory from 0x000 to 0x1FF reserved
     const unsigned int START_ADDRESS = 0x200;
@@ -27,9 +28,14 @@
 	0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
-    Chip8::Chip8() {
+    Chip8::Chip8() 
+        : randGen(std::chrono::system_clock::now().time_since_epoch().count())
+        {
         pc = START_ADDRESS; // first instruction starts at 0x200
 
+        // get rand number between 0 and 255
+        randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
+        
         // load fonts into memory[4096], starting at 0x50
         for (unsigned int i = 0; i < FONTSET_SIZE; ++i) {
             memory[FONTSET_START_ADDRESS + i] = fontset[i];
