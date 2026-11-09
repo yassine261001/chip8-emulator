@@ -35,13 +35,15 @@
 
         // get rand number between 0 and 255
         randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
-        
+
         // load fonts into memory[4096], starting at 0x50
         for (unsigned int i = 0; i < FONTSET_SIZE; ++i) {
             memory[FONTSET_START_ADDRESS + i] = fontset[i];
         }
     }
 
+
+    // load ROM into memory
     void Chip8::LoadROM(char const *filename) {
         // open file as a stream of binary and move file pointer to end
         std::ifstream file(filename, std::ios::binary | std::ios::ate);
@@ -68,3 +70,9 @@
         }
     }
 
+    // 34 instructions
+
+    // 00E0: CLS, Clear the display, set video buffer to zeroes
+    void Chip8::OP_00E0() {
+        memset(video, 0, sizeof(video));
+    }
